@@ -4,11 +4,13 @@ import { Cta, CtaDocument } from './schema/cta.schema'
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UpdateCtaDto } from './dto/update-cta.dto';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class CtaService {
     constructor (
-        @InjectModel(Cta.name) private readonly ctaModel: Model<CtaDocument>
+        @InjectModel(Cta.name) private readonly ctaModel: Model<CtaDocument>,
+        private readonly authService: AuthService
     ) {}
 
     async create(createCtaDto: CreateCtaDto) {
@@ -35,13 +37,23 @@ export class CtaService {
 
     async update(id: string, updateCtaDto: UpdateCtaDto) {
         try {
+            let result;
             const updatedCta = await this.ctaModel.findByIdAndUpdate(
                 id,
                 updateCtaDto,
                 { new: true }
             ).exec()
             if (!updatedCta) throw new NotFoundException(`Cta with ID "${id}" not found`)
-            return updatedCta
+            result = updatedCta
+            if(updatedCta.status == "Aprovado"){
+                const accessToken = await this.authService.createAccessToken(updatedCta.id)
+                result = await this.ctaModel.findByIdAndUpdate(
+                    updatedCta.id,
+                    { $set: { accessToken } },
+                    { new: true }
+                ).exec()
+            }
+            return result
         } catch {
             throw new NotFoundException(`Cta with ID "${id}" not found`)
         }

@@ -24,6 +24,9 @@ export class Cta {
             default: 'pendente',
         })
     status: string
+
+    @Prop({ default: null })
+    accessToken: string
 }
 
 export const CtaSchema = SchemaFactory.createForClass(Cta)
