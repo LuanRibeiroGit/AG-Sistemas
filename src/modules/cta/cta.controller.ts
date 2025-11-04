@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CtaService } from './cta.service';
 import { CreateCtaDto } from './dto/create-cta.dto';
-import { UpdateCtaDto } from './dto/update-cta.dto';
 
 @Controller('cta')
 export class CtaController {

@@ -1,6 +1,5 @@
 import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
 import { CreateCtaDto } from './dto/create-cta.dto';
-import { UpdateCtaDto } from './dto/update-cta.dto';
 import { Cta, CtaDocument } from './schema/cta.schema'
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
