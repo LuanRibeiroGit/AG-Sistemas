@@ -23,8 +23,8 @@ export class CtaService {
         return await this.ctaModel.find()
     }
 
-    findOne(id: number) {
-        return `This action returns a #${id} cta`;
+    async findOne(_id: string) {
+        return await this.ctaModel.findOne({_id}).exec()
     }
 
     update(id: number, updateCtaDto: UpdateCtaDto) {

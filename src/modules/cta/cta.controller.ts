@@ -19,7 +19,7 @@ export class CtaController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.ctaService.findOne(+id);
+    return this.ctaService.findOne(id);
   }
 
   @Patch(':id')
