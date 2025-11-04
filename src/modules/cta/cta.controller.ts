@@ -24,6 +24,6 @@ export class CtaController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.ctaService.remove(+id);
+    return this.ctaService.remove(id);
   }
 }

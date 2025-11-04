@@ -1,4 +1,4 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
 import { CreateCtaDto } from './dto/create-cta.dto';
 import { UpdateCtaDto } from './dto/update-cta.dto';
 import { Cta, CtaDocument } from './schema/cta.schema'
@@ -27,7 +27,11 @@ export class CtaService {
         return await this.ctaModel.findOne({_id}).exec()
     }
 
-    remove(id: number) {
-        return `This action removes a #${id} cta`;
+    async remove(id: string) {
+        try {
+            await this.ctaModel.findByIdAndDelete(id)
+        } catch {
+            throw new NotFoundException(`Cta with ID "${id}" not found`)
+        }
     }
 }
