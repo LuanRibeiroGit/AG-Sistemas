@@ -19,8 +19,8 @@ export class CtaService {
         }
     }
 
-    findAll() {
-        return `This action returns all cta`;
+    async findAll() {
+        return await this.ctaModel.find()
     }
 
     findOne(id: number) {
