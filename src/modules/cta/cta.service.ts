@@ -25,7 +25,9 @@ export class CtaService {
 
     async findOne(_id: string) {
         try {
-            return await this.ctaModel.findOne({_id}).exec()
+            const find = await this.ctaModel.findOne({_id}).exec()
+            if(!find) throw new NotFoundException(`Cta with ID "${_id}" not found`)
+            return find
         } catch {
             throw new NotFoundException(`Cta with ID "${_id}" not found`)
         }
