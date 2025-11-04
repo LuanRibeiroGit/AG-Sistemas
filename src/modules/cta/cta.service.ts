@@ -24,7 +24,11 @@ export class CtaService {
     }
 
     async findOne(_id: string) {
-        return await this.ctaModel.findOne({_id}).exec()
+        try {
+            return await this.ctaModel.findOne({_id}).exec()
+        } catch {
+            throw new NotFoundException(`Cta with ID "${_id}" not found`)
+        }
     }
 
     async update(id: string, updateCtaDto: UpdateCtaDto) {
