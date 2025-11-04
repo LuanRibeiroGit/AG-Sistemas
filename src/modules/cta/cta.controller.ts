@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { CtaService } from './cta.service';
 import { CreateCtaDto } from './dto/create-cta.dto';
 import { AuthGuard } from '../auth/guard/auth.guard';
+import { UpdateCtaDto } from './dto/update-cta.dto';
 
 @Controller('cta')
 export class CtaController {
@@ -22,6 +23,11 @@ export class CtaController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.ctaService.findOne(id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateCtaDto: UpdateCtaDto) {
+    return this.ctaService.update(id, updateCtaDto);
   }
   
   @UseGuards(AuthGuard)

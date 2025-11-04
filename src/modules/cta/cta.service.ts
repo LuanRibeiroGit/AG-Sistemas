@@ -3,6 +3,7 @@ import { CreateCtaDto } from './dto/create-cta.dto';
 import { Cta, CtaDocument } from './schema/cta.schema'
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { UpdateCtaDto } from './dto/update-cta.dto';
 
 @Injectable()
 export class CtaService {
@@ -24,6 +25,10 @@ export class CtaService {
 
     async findOne(_id: string) {
         return await this.ctaModel.findOne({_id}).exec()
+    }
+
+    update(id: string, updateCtaDto: UpdateCtaDto) {
+        return `This action updates a #${id} cta`;
     }
 
     async remove(id: string) {
