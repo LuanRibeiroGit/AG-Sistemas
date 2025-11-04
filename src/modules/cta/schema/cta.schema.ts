@@ -17,6 +17,13 @@ export class Cta {
 
     @Prop({ required: true })
     intention: string
+
+    @Prop({
+        type: String,
+            enum: ['pendente', 'aceito', 'recusado'],
+            default: 'pendente',
+        })
+    status: string
 }
 
 export const CtaSchema = SchemaFactory.createForClass(Cta)
