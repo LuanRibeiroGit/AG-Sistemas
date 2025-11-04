@@ -28,14 +28,17 @@ export class CtaService {
     }
 
     async update(id: string, updateCtaDto: UpdateCtaDto) {
-        const updatedCta = await this.ctaModel.findByIdAndUpdate(
-            id,
-            updateCtaDto,
-            { new: true }
-        ).exec()
-        if (!updatedCta) throw new NotFoundException(`Cta with ID "${id}" not found`)
-        
-        return updatedCta
+        try {
+            const updatedCta = await this.ctaModel.findByIdAndUpdate(
+                id,
+                updateCtaDto,
+                { new: true }
+            ).exec()
+            if (!updatedCta) throw new NotFoundException(`Cta with ID "${id}" not found`)
+            return updatedCta
+        } catch {
+            throw new NotFoundException(`Cta with ID "${id}" not found`)
+        }
     }
 
     async remove(id: string) {
