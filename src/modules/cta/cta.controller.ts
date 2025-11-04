@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { CtaService } from './cta.service';
 import { CreateCtaDto } from './dto/create-cta.dto';
+import { AuthGuard } from '../auth/guard/auth.guard';
 
 @Controller('cta')
 export class CtaController {
@@ -11,16 +12,19 @@ export class CtaController {
     return this.ctaService.create(createCtaDto);
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   findAll() {
     return this.ctaService.findAll();
   }
-
+  
+  @UseGuards(AuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.ctaService.findOne(id);
   }
-
+  
+  @UseGuards(AuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.ctaService.remove(id);
