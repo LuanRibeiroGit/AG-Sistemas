@@ -1,26 +1,37 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { CreateCtaDto } from './dto/create-cta.dto';
 import { UpdateCtaDto } from './dto/update-cta.dto';
+import { Cta, CtaDocument } from './schema/cta.schema'
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class CtaService {
-  create(createCtaDto: CreateCtaDto) {
-    return 'This action adds a new cta';
-  }
+    constructor (
+        @InjectModel(Cta.name) private readonly ctaModel: Model<CtaDocument>
+    ) {}
 
-  findAll() {
-    return `This action returns all cta`;
-  }
+    async create(createCtaDto: CreateCtaDto) {
+        try {
+            return await new this.ctaModel(createCtaDto).save()
+        } catch {
+            throw new ConflictException(`The email '${createCtaDto.email}' is already in use`)
+        }
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} cta`;
-  }
+    findAll() {
+        return `This action returns all cta`;
+    }
 
-  update(id: number, updateCtaDto: UpdateCtaDto) {
-    return `This action updates a #${id} cta`;
-  }
+    findOne(id: number) {
+        return `This action returns a #${id} cta`;
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} cta`;
-  }
+    update(id: number, updateCtaDto: UpdateCtaDto) {
+        return `This action updates a #${id} cta`;
+    }
+
+    remove(id: number) {
+        return `This action removes a #${id} cta`;
+    }
 }
