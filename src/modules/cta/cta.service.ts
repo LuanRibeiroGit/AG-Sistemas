@@ -28,6 +28,7 @@ export class CtaService {
     }
 
     update(id: string, updateCtaDto: UpdateCtaDto) {
+        console.log(updateCtaDto)
         return `This action updates a #${id} cta`;
     }
 
