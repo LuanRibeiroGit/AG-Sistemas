@@ -1,6 +1,6 @@
 import { OmitType, PartialType } from '@nestjs/swagger';
 import { CreateCtaDto } from './create-cta.dto';
-import { IsString } from 'class-validator';
+import { IsString, IsIn } from 'class-validator';
 
 class CreateCtaDtoWithout extends OmitType(CreateCtaDto, [
     'name',
@@ -10,5 +10,8 @@ class CreateCtaDtoWithout extends OmitType(CreateCtaDto, [
 
 export class UpdateCtaDto extends PartialType(CreateCtaDtoWithout) {
     @IsString()
+    @IsIn(['Aprovado', 'Recusado'], {
+        message: 'O status deve ser Aprovado ou Recusado',
+    })
     status: string
 }
