@@ -22,11 +22,6 @@ export class CtaController {
     return this.ctaService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCtaDto: UpdateCtaDto) {
-    return this.ctaService.update(+id, updateCtaDto);
-  }
-
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.ctaService.remove(+id);

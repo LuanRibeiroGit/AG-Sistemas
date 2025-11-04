@@ -27,10 +27,6 @@ export class CtaService {
         return await this.ctaModel.findOne({_id}).exec()
     }
 
-    update(id: number, updateCtaDto: UpdateCtaDto) {
-        return `This action updates a #${id} cta`;
-    }
-
     remove(id: number) {
         return `This action removes a #${id} cta`;
     }
