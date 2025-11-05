@@ -11,6 +11,9 @@ export class CreateUserDto {
     @IsEmail({}, { message: 'Digite o e-mail com o formato correto. Ex...: Exemplo@newdawn.com' })
     email: string
 
+    @IsString({message: 'Digite o nome do cargo'})
+    role: string
+
     @ApiProperty({
         description: 'Senha do usuário',
         example: 'Exemplo@123',
